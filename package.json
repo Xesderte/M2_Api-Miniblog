@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "vitest --globals",
+    "test:ui": "vitest --ui --globals",
+    "test:coverage": "vitest --coverage --globals"
   },
   "repository": {
     "type": "git",

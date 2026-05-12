@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: API MiniBlog
+  version: 1.0.0
+  description: API REST para el Proyecto Integrador - Gestión de Autores y Posts
+servers:
+  - url: http://localhost:3000
+    description: Servidor Local
+paths:
+  /authors:
+    get:
+      summary: Obtiene la lista de todos los autores
+      responses:
+        '200':
+          description: Lista de autores obtenida con éxito
+    post:
+      summary: Crea un nuevo autor
+      responses:
+        '201':
+          description: Autor creado
+        '400':
+          description: Datos inválidos
+  /posts:
+    get:
+      summary: Obtiene todos los posts
+      responses:
+        '200':
+          description: Lista de posts obtenida
+    post:
+      summary: Crea un nuevo post
+      responses:
+        '201':
+          description: Post creado
