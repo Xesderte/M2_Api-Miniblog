@@ -1,18 +1,8 @@
-const path = require('path');
-
-// Obligamos a dotenv a buscar el archivo .env exactamente en la raíz del proyecto
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-}
-
 const { Pool } = require('pg');
 
+// Usamos DATABASE_URL si existe (en Railway), de lo contrario usamos las variables individuales (local)
 const pool = new Pool({
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
+    connectionString: process.env.DATABASE_URL || `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
     ssl: {
         rejectUnauthorized: false
     }
