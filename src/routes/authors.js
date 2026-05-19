@@ -64,4 +64,35 @@ router.delete('/:id', async (req, res, next) => {
     }
 });
 
+
+// 5. PUT /authors/:id - Actualizar un autor
+router.put('/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const { name, email, bio } = req.body;
+
+    try {
+        const result = await pool.query(
+        `UPDATE authors 
+            SET name = COALESCE($1, name), 
+                email = COALESCE($2, email), 
+                bio = COALESCE($3, bio) 
+            WHERE id = $4 RETURNING *`,
+            [name, email, bio, id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Autor no encontrado' });
+        }
+        
+        res.json(result.rows[0]); // Devuelve el autor actualizado con un 200 OK
+    } catch (error) {
+        // Validación técnica: Si intentan cambiar el email por uno que ya existe
+        if (error.code === '23505') {
+            return res.status(409).json({ error: 'Este email ya está registrado por otro usuario' });
+        }
+        next(error);
+    }
+});
+
+
 module.exports = router;
