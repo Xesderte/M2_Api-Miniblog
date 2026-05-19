@@ -3,7 +3,8 @@ const cors = require('cors');
 const pool = require('./db');
 
 const authorsRouter = require('./routes/authors');
-const postsRouter = require('./routes/posts'); 
+const postsRouter = require('./routes/posts');
+const commentsRouter = require('./routes/comments');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.get('/health', async (req, res) => {
 
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
+app.use('/comments', commentsRouter);
 
 app.use((req, res) => {
     res.status(404).json({ error: 'Ruta no encontrada' });
