@@ -33,8 +33,9 @@ router.get('/author/:authorId', async (req, res, next) => {
 // 3. POST /posts - Crear un post
 router.post('/', async (req, res, next) => {
     const { title, content, author_id, published } = req.body;
-    
-    if (!title || !content || !author_id) {
+
+    // Validación estricta para textos, y verificación de existencia para el ID
+    if (!title || !title.trim() || !content || !content.trim() || !author_id) {
         return res.status(400).json({ error: 'Título, contenido y author_id son requeridos' });
     }
 
@@ -57,6 +58,14 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
     const { id } = req.params;
     const { title, content, published } = req.body;
+
+    // Validación para la actualización de post
+    if (title !== undefined && title.trim() === '') {
+        return res.status(400).json({ error: 'El título no puede quedar vacío' });
+    }
+    if (content !== undefined && content.trim() === '') {
+        return res.status(400).json({ error: 'El contenido no puede quedar vacío' });
+    }
 
     try {
         // Usamos COALESCE para actualizar solo los campos que nos envíen

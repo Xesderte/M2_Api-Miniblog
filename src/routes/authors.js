@@ -30,8 +30,8 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     const { name, email, bio } = req.body;
     
-    // Validación básica requerida por la consigna
-    if (!name || !email) {
+    // Validación estricta: evita campos vacíos o llenos de espacios
+    if (!name || !name.trim() || !email || !email.trim()) {
         return res.status(400).json({ error: 'El nombre y el email son obligatorios' });
     }
 
@@ -69,6 +69,14 @@ router.delete('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
     const { id } = req.params;
     const { name, email, bio } = req.body;
+
+    // Validación para la actualización de autor
+    if (name !== undefined && name.trim() === '') {
+        return res.status(400).json({ error: 'El nombre no puede quedar vacío' });
+    }
+    if (email !== undefined && email.trim() === '') {
+        return res.status(400).json({ error: 'El email no puede quedar vacío' });
+    }
 
     try {
         const result = await pool.query(
