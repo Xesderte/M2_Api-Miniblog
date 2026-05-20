@@ -94,7 +94,7 @@ Para evitar que el proyecto quede en un estado de "Deploying" infinito, ve a **S
 * **Start Command:** `npm start` *(NUNCA usar `npm run dev` ni `nodemon` en producción).*
 
 ### Public URL vs Internal URL
-* **Public URL:** Es el dominio con HTTPS que te da Railway (ej. `https://m2api-miniblog-production.up.railway.app`). Con esta URL puedes acceder a tu API en la nube y realizar todas las peticiones y consultas (GET, POST, PUT, DELETE) utilizando clientes REST como **Insomnia** o **Postman**, así como conectarla a tu Frontend.
+* **Public URL:** Es el dominio con HTTPS que te da Railway (`https://m2api-miniblog-production.up.railway.app`). Con esta URL puedes acceder a tu API en la nube y realizar todas las peticiones y consultas (GET, POST, PUT, DELETE) utilizando clientes REST como **Insomnia** o **Postman**, así como conectarla a tu Frontend.
 * **Internal URL:** Es la dirección de red privada de Railway, usada internamente para que la app se conecte a la base de datos a máxima velocidad.
 
 ---
